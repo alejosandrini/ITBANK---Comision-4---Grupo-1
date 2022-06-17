@@ -40,6 +40,7 @@ function actualizar(){
 }
 
 let contenido = document.getElementById('contenido');
+
 function imprimirCard(dato){
     let card = document.createElement('div');
     card.classList.add('col-md-4');
@@ -65,19 +66,22 @@ function imprimirCard(dato){
     contenido.appendChild(card);
 }
 
-fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
-  .then(response => response.json())
-  .then(data => {
-    let datos = data.map(x=>reducirInformacion(x)).filter(y=>esDolar(y));
-    console.log(datos);
-    for(let dato of datos){
-        imprimirCard(dato);
-        console.log(dato);
+function llamadoAPI(){ 
+    fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
+    .then(response => response.json())
+    .then(data => {
+        let datos = data.map(x=>reducirInformacion(x)).filter(y=>esDolar(y));
+        console.log(datos);
+        for(let dato of datos){
+            imprimirCard(dato);
+            console.log(dato);
+        }
+    });
+}
+llamadoAPI();
+setInterval(()=>{
+    while (contenido.hasChildNodes()) {
+        contenido.removeChild(contenido.firstChild);
     }
-  });
-  actualizar();
-setInterval(actualizar(),60000);
-
- 
-
-
+    llamadoAPI();
+},120000);//Se actualiza cada dos minutos
