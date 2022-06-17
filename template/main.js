@@ -1,19 +1,17 @@
-// let compra= document.querySelectorAll('#valorCompra');
-// let venta= document.querySelectorAll('#valorVenta');
-// let variacion= document.querySelectorAll('#variacion');
-// console.log(compra)
-// let actualizacion = document.querySelectorAll("#ultimaActualizacion")
+function reducirInformacion(info){
+    let nuevoDato = {
+        nombre: info.casa.nombre,
+        compra: info.casa.compra,
+        venta: info.casa.venta,
+        variacion: info.casa.variacion
+    };
+    return nuevoDato;
+}
 
-// function imprimir(arr, data, atrib)
-// {
-//     let i = 0;
-//     for(let elem of arr)
-//     {
-//         elem.innerHTML= `$${data[i].casa[atrib]}`
-//         console.log( data[i].casa[atrib]);
-//         i++;
-//     }
-// }
+function esDolar(dato){
+    return dato.nombre.includes('Dolar ')&&!(dato.nombre.includes('Soja'));
+}
+
 function obtenerMinutos(fecha){
     return(fecha.getMinutes()<10)?'0'+fecha.getMinutes():fecha.getMinutes();
 }
@@ -39,20 +37,6 @@ function generarVariacion(dato){
     return `<div class="card-body bg-white">
         <p class="card-text" id="variacion"><span class="fa ${icono}" ${estilo}></span> VARIACIÓN ${signo}${dato.variacion}%</p>
     </div>`
-}
-
-function reducirInformacion(info){
-    let nuevoDato = {
-        nombre: info.casa.nombre,
-        compra: info.casa.compra,
-        venta: info.casa.venta,
-        variacion: info.casa.variacion
-    };
-    return nuevoDato;
-}
-
-function esDolar(dato){
-    return dato.nombre.includes('Dolar ')&&!(dato.nombre.includes('Soja'));
 }
 
 let contenido = document.getElementById('contenido');
