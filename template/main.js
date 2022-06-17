@@ -12,15 +12,6 @@ function esDolar(dato){
     return dato.nombre.includes('Dolar ')&&!(dato.nombre.includes('Soja'));
 }
 
-function obtenerMinutos(fecha){
-    return(fecha.getMinutes()<10)?'0'+fecha.getMinutes():fecha.getMinutes();
-}
-
-function actualizar(){
-    let fecha = new Date;
-    return `ACTUALIZADO ${fecha.getDate()}/${fecha.getMonth()}/${fecha.getFullYear()} ${fecha.getHours()}:${obtenerMinutos(fecha)} `
-}
-
 function generarVariacion(dato){
     let icono;
     let signo ='';
@@ -37,6 +28,15 @@ function generarVariacion(dato){
     return `<div class="card-body bg-white">
         <p class="card-text" id="variacion"><span class="fa ${icono}" ${estilo}></span> VARIACIÓN ${signo}${dato.variacion}%</p>
     </div>`
+}
+
+function obtenerMinutos(fecha){
+    return(fecha.getMinutes()<10)?'0'+fecha.getMinutes():fecha.getMinutes();
+}
+
+function actualizar(){
+    let fecha = new Date;
+    return `ACTUALIZADO ${fecha.getDate()}/${fecha.getMonth()}/${fecha.getFullYear()} ${fecha.getHours()}:${obtenerMinutos(fecha)} `
 }
 
 let contenido = document.getElementById('contenido');
