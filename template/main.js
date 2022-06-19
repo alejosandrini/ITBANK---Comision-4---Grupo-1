@@ -1,3 +1,5 @@
+let  valoresAceptados = /^[0-9|,]+$/;
+
 function reducirInformacion(info){
     let nuevoDato = {
         nombre: info.casa.nombre,
@@ -10,6 +12,23 @@ function reducirInformacion(info){
 
 function esDolar(dato){
     return dato.nombre.includes('Dolar ')&&!(dato.nombre.includes('Soja'));
+}
+
+function generarCompra(dato){
+    let icono = '$';
+    if(dato.compra.match(valoresAceptados)==null){
+        icono = ''
+        console.log(dato.compra)
+        console.log('match: '+dato.compra.match(valoresAceptados))
+    }
+    return `<div class="col-sm-6">
+                        <p class="card-text m-0">COMPRA</p>
+                        <h4 class="fw-bold m-0" id="valorCompra">${icono}${dato.compra}</h4>
+                    </div>`
+}
+
+function generarVenta(){
+
 }
 
 function generarVariacion(dato){
@@ -46,14 +65,15 @@ function imprimirCard(dato){
     card.classList.add('col-md-4');
     card.classList.add('my-1');
     card.innerHTML= `
-        <div class="card bg-success text-center">
-            <h3 class="card-title text-white"><span class="fa fa-money" style="color:white;"></span> ${dato.nombre}</h3>
+        <div class="card bg-success text-center h-100">
+            <div class="h-100">
+                <h3 class="card-title text-white position-relative top-50 translate-middle-y">
+                    <span class="fa fa-money" style="color:white;"></span> ${dato.nombre}
+                </h3>
+            </div>
             <div class="card-body bg-secondary">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <p class="card-text m-0">COMPRA</p>
-                        <h4 class="fw-bold m-0" id="valorCompra">$${dato.compra}</h4>
-                    </div>
+                    ${generarCompra(dato)}
                     <div class="col-sm-6">
                         <p class="card-text m-0">VENTA</p>
                         <h4 class="fw-bold m-0" id="valorVenta">$${dato.venta}</h4>
