@@ -27,8 +27,11 @@ function generarCompra(dato){
                     </div>`
 }
 
-function generarVenta(){
-
+function generarVenta(dato){
+    return `<div class="col-sm-6">
+                        <p class="card-text m-0">VENTA</p>
+                        <h4 class="fw-bold m-0" id="valorVenta">$${dato.venta}</h4>
+                    </div>`
 }
 
 function generarVariacion(dato){
@@ -44,7 +47,7 @@ function generarVariacion(dato){
         estilo = 'style="color:green;"';
     }
 
-    return `<div class="card-body bg-white">
+    return `<div class="card-body bg-white ">
         <p class="card-text" id="variacion"><span class="fa ${icono}" ${estilo}></span> VARIACIÓN ${signo}${dato.variacion}%</p>
     </div>`
 }
@@ -66,7 +69,7 @@ function imprimirCard(dato){
     card.classList.add('my-1');
     card.innerHTML= `
         <div class="card bg-success text-center h-100">
-            <div class="h-100">
+            <div class="h-100 px-1">
                 <h3 class="card-title text-white position-relative top-50 translate-middle-y">
                     <span class="fa fa-money" style="color:white;"></span> ${dato.nombre}
                 </h3>
@@ -74,10 +77,7 @@ function imprimirCard(dato){
             <div class="card-body bg-secondary">
                 <div class="row">
                     ${generarCompra(dato)}
-                    <div class="col-sm-6">
-                        <p class="card-text m-0">VENTA</p>
-                        <h4 class="fw-bold m-0" id="valorVenta">$${dato.venta}</h4>
-                    </div>
+                    ${generarVenta(dato)}
                 </div>
             </div>
             ${generarVariacion(dato)}
