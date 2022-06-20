@@ -98,7 +98,7 @@ function llamadoAPI(){
         }
     });
 }
-llamadoAPI();
+window.onload = llamadoAPI();
 setInterval(()=>{
     while (contenido.hasChildNodes()) {
         contenido.removeChild(contenido.firstChild);
