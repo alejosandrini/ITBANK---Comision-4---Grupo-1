@@ -10,15 +10,22 @@ import csv
     Aclaracion: En la descripción de los campos, falta el campo TIPO, que es un string 
         que puede tener los siguientes valores  "EMITIDO" o "DEPOSITADO"
 """
-
 def escribir():
     with open('output.csv', 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
 
 def leer(archivo, dni, salida, tipoCheque, estadoCheque="todos", rangoFecha="01-01-0000:31-12-9999"):
+    diccionario = {}
     with open(f"template\{archivo}", newline='', encoding='utf-8') as f:
         reader = csv.reader(f)
-        for row in reader:
-            print(row)
+        mapearCSV(reader, diccionario)
+    print(diccionario)
 
-# leer("test.csv",123,132,123)
+def mapearCSV(reader, diccionario):
+    for NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado in reader:
+        if(diccionario.get(DNI)):
+            diccionario[DNI].append(NroCheque)
+        else:
+            diccionario[DNI] = [NroCheque]
+
+leer("test.csv",123,132,123)
