@@ -19,13 +19,25 @@ def leer(archivo, dni, salida, tipoCheque, estadoCheque="todos", rangoFecha="01-
     with open(f"template\{archivo}", newline='', encoding='utf-8') as f:
         reader = csv.reader(f)
         mapearCSV(reader, diccionario)
-    print(diccionario)
+        f.close()
+        print(diccionario)
 
 def mapearCSV(reader, diccionario):
-    for NroCheque,CodigoBanco,CodigoScurusal,NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado in reader:
+    for NroCheque,CodBanco,CodiScurusal,NroCuentaOrigen,NroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado in reader:
+        datos = [NroCheque,CodBanco,CodiScurusal,NroCuentaOrigen,NroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado]
         if(diccionario.get(DNI)):
-            diccionario[DNI].append(NroCheque)
+            try:
+                verificarChequeRepetido(diccionario.get(DNI), NroCheque, NroCuentaOrigen)
+            except ValueError:
+                print(f"Error-->El cheque con nro:{NroCheque} se encuentra repetido en la cuenta: {NroCuentaOrigen}")
+                exit()
+            diccionario[DNI].append(datos)
         else:
-            diccionario[DNI] = [NroCheque]
+            diccionario[DNI] = [datos]
+
+def verificarChequeRepetido(datos, NroCheque, NroCuentaOrigen):
+    for dato in datos:
+        if (NroCheque in dato and NroCuentaOrigen in dato):
+            raise ValueError
 
 leer("test.csv",123,132,123)
