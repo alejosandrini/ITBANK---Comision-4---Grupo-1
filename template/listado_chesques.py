@@ -1,14 +1,18 @@
 import csv
 import argparse
 """
-    2)Recibir argumentos por consola: Nombre del archivo csv, DNI, Salida,
-        Tipo de cheque, Estado de cheque(opcional), Rango de fecha(opcional)
+    Queda por hacer:
     4)El csv de respuesta debe tener: nombre del archivo <DNI><TIMESTAMPS ACTUAL>.csv
         Se tiene que exportar las dos fechas, el valor del cheque y la cuenta.
+    5) Si el estado del cheque no se pasa, se deberán imprimir los cheques sin filtrar por estado 
 
     Aclaracion: En la descripción de los campos, falta el campo TIPO, que es un string 
         que puede tener los siguientes valores  "EMITIDO" o "DEPOSITADO"
 """
+# ejemplo1: py template\listado_chesques.py test.csv 40998788 Pantalla 123 -ec aprobado
+# ejemplo2: py template\listado_chesques.py test.csv 40998788 Pantalla 123 -ec rechazado
+# ejemplo3: py template\listado_chesques.py test.csv 40998788 Pantalla 123
+# ejemplo4: py template\listado_chesques.py test.csv 23665789 Pantalla 123
 parser = argparse.ArgumentParser("""Ingresa Nombre del archivo csv, DNI, Salida,
         Tipo de cheque, Estado de cheque(opcional), Rango de fecha(opcional)""")
 parser.add_argument('csv',type=str,help='Ingresa nombre del archivo csv')
