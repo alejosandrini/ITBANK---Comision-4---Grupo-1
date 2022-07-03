@@ -19,7 +19,7 @@ fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
   .then(response => response.json())
   .then(data => {
       
-   imprimir(compra, data, 'compra' );
+   imprimir(compra, data, 'compra');
     
    imprimir(venta, data, 'venta');
 
