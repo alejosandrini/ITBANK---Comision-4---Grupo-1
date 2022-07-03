@@ -1,9 +1,7 @@
 import csv
 """
-    2)El csv de datos tiene: NroCheque,CodigoBanco,CodigoScurusal,
-        NumeroCuentaOrigen,NumeroCuentaDestino,Valor,FechaOrigen,
-        FechaPago,DNI,Tipo,Estado
-    3)Si se repite numero de cheque --> error por pantalla
+    2)Recibir argumentos por consola: Nombre del archivo csv, DNI, Salida,
+        Tipo de cheque, Estado de cheque(opcional), Rango de fecha(opcional)
     4)El csv de respuesta debe tener: nombre del archivo <DNI><TIMESTAMPS ACTUAL>.csv
         Se tiene que exportar las dos fechas, el valor del cheque y la cuenta.
 
@@ -18,14 +16,14 @@ def leer(archivo, dni, salida, tipoCheque, estadoCheque="todos", rangoFecha="01-
     diccionario = {}
     with open(f"template\{archivo}", newline='', encoding='utf-8') as f:
         reader = csv.reader(f)
-        mapearCSV(reader, diccionario)
+        generarDiccionarioCSV(reader, diccionario)
         f.close()
         print(diccionario)
 
-def mapearCSV(reader, diccionario):
+def generarDiccionarioCSV(reader, diccionario):
     for NroCheque,CodBanco,CodiScurusal,NroCuentaOrigen,NroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado in reader:
         datos = [NroCheque,CodBanco,CodiScurusal,NroCuentaOrigen,NroCuentaDestino,Valor,FechaOrigen,FechaPago,DNI,Tipo,Estado]
-        if(diccionario.get(DNI)):
+        if(DNI in diccionario):
             try:
                 verificarChequeRepetido(diccionario.get(DNI), NroCheque, NroCuentaOrigen)
             except ValueError:
