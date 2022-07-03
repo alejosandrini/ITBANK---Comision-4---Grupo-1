@@ -1,9 +1,9 @@
 import csv
 import argparse
+from datetime import datetime
+
 """
-    Queda por hacer:
-    4)El csv de respuesta debe tener: nombre del archivo <DNI><TIMESTAMPS ACTUAL>.csv
-        Se tiene que exportar las dos fechas, el valor del cheque y la cuenta.
+
     5) Si el estado del cheque no se pasa, se deberán imprimir los cheques sin filtrar por estado 
 
     Aclaracion: En la descripción de los campos, falta el campo TIPO, que es un string 
@@ -12,7 +12,7 @@ import argparse
 # ejemplo1: py template\listado_chesques.py test.csv 40998788 Pantalla 123 -ec aprobado
 # ejemplo2: py template\listado_chesques.py test.csv 40998788 Pantalla 123 -ec rechazado
 # ejemplo3: py template\listado_chesques.py test.csv 40998788 Pantalla 123
-# ejemplo4: py template\listado_chesques.py test.csv 23665789 Pantalla 123
+# ejemplo4: py template\listado_chesques.py test.csv 23665789 Csv 123
 parser = argparse.ArgumentParser("""Ingresa Nombre del archivo csv, DNI, Salida,
         Tipo de cheque, Estado de cheque(opcional), Rango de fecha(opcional)""")
 parser.add_argument('csv',type=str,help='Ingresa nombre del archivo csv')
@@ -24,9 +24,14 @@ parser.add_argument('-rf','--rangofecha',type=str,help='Ingresa un rango de fech
 
 args = parser.parse_args()
 
-def escribir():
-    with open('output.csv', 'w', newline='', encoding='utf-8') as f:
+def escribir(resultado):
+    dt=datetime.now()
+    ts=datetime.timestamp(dt)
+    with open(f'{resultado[0][8]}{ts}.csv', 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
+        for cheque in resultado:
+            valor = [cheque [3], cheque[5], cheque[6], cheque[7]]
+            writer.writerow(valor)    
 
 def leer(archivo, dni, salida, tipoCheque, estadoCheque, rangoFecha="01-01-0000:31-12-9999"):
     diccionario = {}
@@ -34,7 +39,7 @@ def leer(archivo, dni, salida, tipoCheque, estadoCheque, rangoFecha="01-01-0000:
         reader = csv.reader(f)
         generarDiccionarioCSV(f,reader, diccionario)
         f.close()
-        print(diccionario)
+        #print(diccionario)
         resultado = diccionario.get(str(dni))
         imprimirResultados(salida,resultado)
         
@@ -62,6 +67,11 @@ def imprimirResultados(salida,resultado):
     if(salida.upper() == "PANTALLA"):
         print("\nLa salida es pantalla\n")
         print(resultado)
+    elif(salida.upper() == "CSV"):
+        escribir(resultado)
+    else :
+        print(f"Error-->La salida: {salida} no es valida")
+        exit()
 
 if(args.rangofecha):
     leer(args.csv, args.dni, args.salida,args.tipocheque,args.estadocheque,args.rangofecha)
