@@ -10,9 +10,12 @@ function reducirInformacion(info){
     return nuevoDato;
 }
 
+
+
 function esDolar(dato){
     return dato.nombre.includes('Dolar ')&&!(dato.nombre.includes('Soja'));
 }
+
 
 function generarCompra(dato){
     let icono = '$';
