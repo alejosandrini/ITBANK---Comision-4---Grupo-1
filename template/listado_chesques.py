@@ -33,9 +33,12 @@ def escribir(resultado):
             valor = [cheque [3], cheque[5], cheque[6], cheque[7]]
             writer.writerow(valor)    
 
+def filtrarCheque(resultado, estadoCheque):
+    return filter(lambda cheque: cheque[10]== estadoCheque.upper(), resultado)
+
 def leer(archivo, dni, salida, tipoCheque, estadoCheque, rangoFecha="01-01-0000:31-12-9999"):
     diccionario = {}
-    with open(f"template\{archivo}", newline='', encoding='utf-8') as f:
+    with open(f"template\{archivo}",'r', newline='', encoding='utf-8') as f:
         reader = csv.reader(f)
         generarDiccionarioCSV(f,reader, diccionario)
         f.close()
@@ -69,10 +72,10 @@ def imprimirResultados(salida,resultado):
     if(salida.upper() == "PANTALLA"):
    
         for cheque in resultado:
-            print(f"""NroCheque:{cheque[0]}\n,CodBanco:{cheque[1]}\n,CodiScurusal:{cheque[2]}\n,
-            NroCuentaOrigen:{cheque[3]}\n,NroCuentaDestino:{cheque[4]}\n,Valor:{cheque[5]}\n,
-            FechaOrigen:{cheque[6]}\n,FechaPago:{cheque[7]}\n,DNI:{cheque[8]}\n,
-            Tipo:{cheque[9]}\n,Estado:{cheque[10]}\n""")
+            print(f"""\nNroCheque:{cheque[0]}\nCodBanco:{cheque[1]}\nCodiScurusal:{cheque[2]}
+NroCuentaOrigen:{cheque[3]}\nNroCuentaDestino:{cheque[4]}\nValor:{cheque[5]}
+FechaOrigen:{cheque[6]}\nFechaPago:{cheque[7]}\nDNI:{cheque[8]}
+Tipo:{cheque[9]}\nEstado:{cheque[10]}\n=======================""")
 
     elif(salida.upper() == "CSV"):
         escribir(resultado)
@@ -85,9 +88,3 @@ if(args.rangofecha):
 else:
     leer(args.csv, args.dni, args.salida,args.tipocheque,args.estadocheque)
 # leer("test.csv","40998788","PantaLla",123)
-
-def filtrarCheque(resultado, estadoCheque):
-    return filter(lambda cheque: cheque[10]== estadoCheque , resultado)
-    
-
-    
