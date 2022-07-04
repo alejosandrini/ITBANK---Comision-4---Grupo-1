@@ -41,6 +41,8 @@ def leer(archivo, dni, salida, tipoCheque, estadoCheque, rangoFecha="01-01-0000:
         f.close()
         #print(diccionario)
         resultado = diccionario.get(str(dni))
+        if(estadoCheque != None):
+            resultado = filtrarCheque(resultado, estadoCheque)
         imprimirResultados(salida,resultado)
         
 
@@ -65,8 +67,13 @@ def verificarChequeRepetido(datos, NroCheque, NroCuentaOrigen):
 
 def imprimirResultados(salida,resultado):
     if(salida.upper() == "PANTALLA"):
-        print("\nLa salida es pantalla\n")
-        print(resultado)
+   
+        for cheque in resultado:
+            print(f"""NroCheque:{cheque[0]}\n,CodBanco:{cheque[1]}\n,CodiScurusal:{cheque[2]}\n,
+            NroCuentaOrigen:{cheque[3]}\n,NroCuentaDestino:{cheque[4]}\n,Valor:{cheque[5]}\n,
+            FechaOrigen:{cheque[6]}\n,FechaPago:{cheque[7]}\n,DNI:{cheque[8]}\n,
+            Tipo:{cheque[9]}\n,Estado:{cheque[10]}\n""")
+
     elif(salida.upper() == "CSV"):
         escribir(resultado)
     else :
@@ -78,3 +85,9 @@ if(args.rangofecha):
 else:
     leer(args.csv, args.dni, args.salida,args.tipocheque,args.estadocheque)
 # leer("test.csv","40998788","PantaLla",123)
+
+def filtrarCheque(resultado, estadoCheque):
+    return filter(lambda cheque: cheque[10]== estadoCheque , resultado)
+    
+
+    
