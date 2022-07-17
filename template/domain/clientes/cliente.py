@@ -1,4 +1,4 @@
-from .cuenta import Cuenta
+from .cuenta import Caja_ahorro_dolares, Caja_ahorro_pesos, Cuenta, Cuenta_corriente
 
 
 class Cliente:
@@ -29,7 +29,7 @@ class Cliente:
 class Classic(Cliente):
     def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
         super().__init__(nombre, apellido, numero, dni, direccion, transacciones)
-        self.cuenta = Cuenta(10000,150000,0,1,0)
+        self.cuentas = [Caja_ahorro_pesos(10000,150000,0,0.1,0)]
         self.max_tarjetas_debito = 1
         self.max_chequeras = 0
         self.max_tarjetas_credito = 0
@@ -40,18 +40,18 @@ class Classic(Cliente):
 class Gold(Cliente):
     def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
         super().__init__(nombre, apellido, numero, dni, direccion, transacciones)
-        self.cuenta = Cuenta(20000,500000,0,0,5,10000)
+        self.cuentas = [Caja_ahorro_pesos(20000,500000,0,0.05,10000), Caja_ahorro_dolares(20000,500000,0,0.05,10000), Cuenta_corriente(20000,500000,0,0.05,10000)]
         self.max_tarjetas_debito = 1
         self.max_chequeras = 1
         self.max_tarjetas_credito = 1
         
     def puede_comprar_dolar():
-        return False
+        return True
 
 class Black(Cliente):
     def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
         super().__init__(nombre, apellido, numero, dni, direccion, transacciones)
-        self.cuenta = Cuenta(100000,None,0,0,10000)
+        self.cuentas = [Caja_ahorro_pesos(100000,None,0,0,10000), Caja_ahorro_dolares(100000,None,0,0,10000), Cuenta_corriente(100000,None,0,0,10000)]
         self.max_chequeras = 2
         self.max_tarjetas_credito = 5
 
