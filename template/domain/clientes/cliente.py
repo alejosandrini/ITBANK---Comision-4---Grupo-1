@@ -1,4 +1,4 @@
-from template.domain.clientes.cuenta import Cuenta
+from .cuenta import Cuenta
 
 
 class Cliente:
@@ -52,6 +52,9 @@ class Black(Cliente):
         self.cuenta = Cuenta(100000,None,0,0,10000)
         self.max_chequeras = 2
         self.max_tarjetas_credito = 5
+
+    def __str__(self):
+        return f"Nombre: {self.nombre}"
 
     def puede_comprar_dolar():
         return True
