@@ -9,11 +9,11 @@ class Parser():
         obj_dir = obj['direccion']
         direccion = Direccion(obj_dir['calle'],obj_dir['numero'],obj_dir['ciudad'],obj_dir['provincia'],obj_dir['pais'])
         if(obj['tipo'].upper() == "BLACK"):
-            cliente = Black(obj['nombre'], obj['apellido'], obj['numero'], obj['dni'], direccion)
+            cliente = Black(obj['nombre'], obj['apellido'], obj['numero'], obj['dni'], direccion, obj['transacciones'])
         elif(obj['tipo'].upper() == "GOLD"):
-            cliente = Gold(obj['nombre'], obj['apellido'], obj['numero'], obj['dni'], direccion)
+            cliente = Gold(obj['nombre'], obj['apellido'], obj['numero'], obj['dni'], direccion, obj['transacciones'])
         elif(obj['tipo'].upper() == "CLASSIC"):
-            cliente = Classic(obj['nombre'], obj['apellido'], obj['numero'], obj['dni'], direccion)
+            cliente = Classic(obj['nombre'], obj['apellido'], obj['numero'], obj['dni'], direccion, obj['transacciones'])
         else:
             raise ValueError("Tipo de cuenta invalido")
         return cliente

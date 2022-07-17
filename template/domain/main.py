@@ -6,7 +6,8 @@ def obtenerJson():
     cliente = Parser.generarCliente(sys.argv[1])
     return cliente
 def imprimirHtml(cliente):
-    Exporter.generarReporte(cliente)
+    exporter = Exporter()
+    exporter.generarReporte(cliente)
 
 if __name__ == '__main__':
     cliente = obtenerJson()
