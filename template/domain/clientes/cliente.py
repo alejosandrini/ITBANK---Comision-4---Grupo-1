@@ -1,12 +1,14 @@
-from template.domain.clientes.cuenta import Cuenta
+from .cuenta import Cuenta
 
 
 class Cliente:
-    def __init__(self, nombre, apellido, numero, dni):
+    def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
         self.nombre = nombre
         self.apellido = apellido
         self.numero = numero
         self.dni = dni
+        self.direccion = direccion
+        self.transacciones = transacciones
         self.max_chequeras = 0
         self.cantidad_chequeras = 0
         self.max_tarjetas_credito = 0
@@ -25,8 +27,8 @@ class Cliente:
         return False
 
 class Classic(Cliente):
-    def __init__(self, nombre, apellido, numero, dni):
-        super().__init__(nombre, apellido, numero, dni)
+    def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
+        super().__init__(nombre, apellido, numero, dni, direccion, transacciones)
         self.cuenta = Cuenta(10000,150000,0,1,0)
         self.max_tarjetas_debito = 1
         self.max_chequeras = 0
@@ -36,8 +38,8 @@ class Classic(Cliente):
         return False
 
 class Gold(Cliente):
-    def __init__(self, nombre, apellido, numero, dni):
-        super().__init__(nombre, apellido, numero, dni)
+    def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
+        super().__init__(nombre, apellido, numero, dni, direccion, transacciones)
         self.cuenta = Cuenta(20000,500000,0,0,5,10000)
         self.max_tarjetas_debito = 1
         self.max_chequeras = 1
@@ -47,11 +49,14 @@ class Gold(Cliente):
         return False
 
 class Black(Cliente):
-    def __init__(self, nombre, apellido, numero, dni):
-        super().__init__(nombre, apellido, numero, dni)
+    def __init__(self, nombre, apellido, numero, dni, direccion, transacciones):
+        super().__init__(nombre, apellido, numero, dni, direccion, transacciones)
         self.cuenta = Cuenta(100000,None,0,0,10000)
         self.max_chequeras = 2
         self.max_tarjetas_credito = 5
+
+    def __str__(self):
+        return f"Nombre: {self.nombre}"
 
     def puede_comprar_dolar():
         return True
