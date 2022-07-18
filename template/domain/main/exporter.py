@@ -1,4 +1,3 @@
-import html
 class Exporter():
     def generarReporte(self, cliente):
         f = open(f'.\entradas-salidas\\reporte.html', 'w', encoding="utf-8")
