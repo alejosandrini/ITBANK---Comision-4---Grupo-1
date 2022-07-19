@@ -5,7 +5,10 @@ class Cuenta:
         self.monto = monto
         self.costo_transferencias = costo_transferencias 
         self.saldo_descubierto_disponible = saldo_descubierto_disponible
-
+    def actualizarSaldo(self, saldo):
+        self.monto = saldo
+    def actualizarLimiteExtraccion(self, monto):
+        self.limite_extraccion_diario = monto
 class Caja_ahorro_pesos(Cuenta):
     def __init__(self, limite_extraccion_diario, limite_transferencia_recibida, monto, costo_transferencias, saldo_descubierto_disponible):
         super().__init__(limite_extraccion_diario, limite_transferencia_recibida, monto, costo_transferencias, saldo_descubierto_disponible)
