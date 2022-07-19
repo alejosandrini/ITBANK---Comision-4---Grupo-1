@@ -14,7 +14,8 @@ Repositorio del grupo 1, comisión 4 - ITBANK.
 ## Consideraciones Sprint 5:
 Para la ejecución:
 1. Posicionarse en la carpeta template/domain (cd template/domain)
-2. Ejecutar py: py main.py <nombreJson>.json
+2. Ejecutar py: py main.py nombreJson.json
+
 Para los archivos:
 1. Los archivos de entrada JSON deben estar en la carpeta entradas-salidas
 2. El reporte se genera en la carpeta entradas-salidas
