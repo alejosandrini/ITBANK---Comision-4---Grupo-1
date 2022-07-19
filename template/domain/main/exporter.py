@@ -1,4 +1,3 @@
-import html
 class Exporter():
     def generarReporte(self, cliente):
         f = open(f'.\entradas-salidas\\reporte.html', 'w', encoding="utf-8")
@@ -18,7 +17,7 @@ class Exporter():
                 <div class="container">
                     <h2>Reporte</h2>
                     <div class="card bg-secondary my-1">
-                        <h4 class="card-title m-2 pt-1 text-light">Cliente</h4>
+                        <h4 class="card-title m-2 pt-1 text-light">Cliente {type(cliente).__name__}</h4>
                         <div class="card-body bg-light py-2 m-1">
                             <p class="card-text my-0">Nombre: {cliente.nombre}</p>
                             <p class="card-text my-0">Número: {cliente.numero}</p>
@@ -56,10 +55,10 @@ class Exporter():
         for t in transacciones:
             html+=f"""              
                                     <tr>
-                                        <th scope="row">{t['fecha']}</th>
-                                        <td>{t['tipo']}</td>
-                                        <td>{t['estado']}</td>
-                                        <td>{t['monto']}</td>
-                                        <td></td>
+                                        <th scope="row">{t.fecha}</th>
+                                        <td>{t.tipo}</td>
+                                        <td>{t.estado}</td>
+                                        <td>{t.monto}</td>
+                                        <td>{t.razon}</td>
                                     </tr>"""
         return html
